@@ -1,5 +1,27 @@
+// Require dependencies
 var cheerio = require("cheerio");
 var axios = require("axios");
+var express = require("express");
+
+// Setup port to host designated port or 3000
+var PORT = process.env.PORT || 3000;
+
+// Initiate Express app
+var app = express();
+
+// Setup Express Router
+var router = express.Router();
+
+// Designate public folder as a static directory
+app.use(express.static);
+
+// Have each request go through router middleware
+app.use(router);
+
+// Listen on the port
+app.listen(PORT, function() {
+  console.log("Listening on port:" + PORT)
+});
 
 // Making a request via axios for reddit's "webdev" board. The page's HTML is passed as the callback's third argument
 axios.get("https://stackoverflow.com/").then(function(response) {
