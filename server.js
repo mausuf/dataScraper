@@ -2,6 +2,11 @@
 var cheerio = require("cheerio");
 var axios = require("axios");
 var express = require("express");
+var expressHandlebars = require("express-handlebars");
+var bodyParser = require("body-parser");
+var mongoose = require("mongoose");
+
+
 
 // Setup port to host designated port or 3000
 var PORT = process.env.PORT || 3000;
@@ -15,16 +20,43 @@ var router = express.Router();
 // Designate public folder as a static directory
 app.use(express.static);
 
+// Connect Handlebars to the Express app
+app.engine("handlebars", expressHandlebars({
+  defaultLayout: "main"
+}));
+app.set("view engine", "handlebars");
+
+// Use bodyParser to setup the app
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+
 // Have each request go through router middleware
 app.use(router);
+
+// Use deployed database or Use local database
+var db = process.env.MONGODB_URI || "mongodb://localhost/mongoSODB";
+
+// Connect mongoose to the database
+mongoose.connect(db, function(error) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("mongoose connection successfully made")
+  }
+});
 
 // Listen on the port
 app.listen(PORT, function() {
   console.log("Listening on port:" + PORT)
 });
 
+
+// -----------------------------------------------------
+// -----------------------------------------------------
+
 // Making a request via axios for reddit's "webdev" board. The page's HTML is passed as the callback's third argument
-axios.get("https://stackoverflow.com/").then(function(response) {
+axios.get("https://stackoverflow.commm/").then(function(response) {
 
   // '$' becomes a shorthand for cheerio's selector commands, much like jQuery's '$'
   var $ = cheerio.load(response.data);
