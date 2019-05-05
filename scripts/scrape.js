@@ -1,13 +1,18 @@
 // To make a successful scrape require:
 var request = require("request");
 var cheerio = require("cheerio");
+var axios = require("axios");
 
 
-// Making a request via axios for reddit's "webdev" board. The page's HTML is passed as the callback's third argument
-axios.get("https://stackoverflow.com/").then(function(response) {
+// Making a request via Axios
+// axios.get("https://stackoverflow.com/").then(function(response) {
+
+// Making a request via Cheerio?
+request("https://stackoverflow.com/", function(err, response, body) {
+
 
   // '$' becomes a shorthand for cheerio's selector commands, much like jQuery's '$'
-  var $ = cheerio.load(response.data);
+  var $ = cheerio.load(body);
 
   // An empty array to save the data that we'll scrape
   var results = [];
@@ -33,3 +38,5 @@ axios.get("https://stackoverflow.com/").then(function(response) {
   // Log the results once you've looped through each of the elements found with cheerio
   console.log(results);
 });
+
+module.exports = scrape;
