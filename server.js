@@ -58,7 +58,7 @@ app.listen(PORT, function() {
 // -----------------------------------------------------
 // -----------------------------------------------------
 
-// // Making a request via axios for reddit's "webdev" board. The page's HTML is passed as the callback's third argument
+// // Making a request via Axios
 // axios.get("https://stackoverflow.com/").then(function(response) {
 
 //   // '$' becomes a shorthand for cheerio's selector commands, much like jQuery's '$'
