@@ -19,7 +19,7 @@ module.exports = {
                 console.log(err);
             } else {
                 console.log(doc);
-                cb(doc);
+                cb(doc); 
             }
         });
     },
